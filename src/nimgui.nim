@@ -419,7 +419,7 @@ type
   ImU8* = char
   ImWchar* = uint16
 
-  carray* {.unchecked.}[T] = UncheckedArray[T]
+  carray*[T]{.magic: "UncheckedArray".} = UncheckedArray[T] #changed the magic order to after the generic because the compiler said it was a warning. Causes problems? dunno
   ImDrawData* {.importc: "ImDrawData", header: "<cimgui.h>".} = object
     valid* {.importc: "Valid".} : bool
     cmdLists* {.importc: "CmdLists".} : carray[ptr ImDrawList]
@@ -1603,7 +1603,7 @@ proc igPushFont*(font: ptr ImFont): void {.imgui_lib, importc: "igPushFont".}
 proc igPushID*(str_id: cstring): void {.imgui_lib, importc: "igPushID".}
 proc igPushItemWidth*(item_width: float32): void {.imgui_lib, importc: "igPushItemWidth".}
 proc igPushStyleColor*(idx: ImGuiCol, col: ImU32): void {.imgui_lib, importc: "igPushStyleColor".}
-proc igPushStyleVar*(idx: ImGuiStyleVar, val: float32): void {.imgui_lib, importc: "igPushStyleVar".}
+proc igPushStyleVar*(idx: ImGuiStyleVar, val: float32): void {.imgui_lib, importc: "igPushStyleVarFloat".}
 proc igPushTextWrapPos*(wrap_local_pos_x: float32 = 0.0f): void {.imgui_lib, importc: "igPushTextWrapPos".}
 proc igRadioButton*(label: cstring, active: bool): bool {.imgui_lib, importc: "igRadioButton".}
 proc igRender*(): void {.imgui_lib, importc: "igRender".}
